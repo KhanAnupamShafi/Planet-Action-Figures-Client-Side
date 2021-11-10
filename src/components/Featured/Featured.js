@@ -35,11 +35,7 @@ const Featured = () => {
         {images.map(({ id, imgPath }) => (
           <React.Fragment key={id}>
             <Grid item xs={6} sm={4} md={4} lg={2}>
-              <Paper
-                variant="outlined"
-                elevation="6"
-                sx={{ border: "none", mt: 2 }}
-              >
+              <Paper elevation={0} sx={{ my: 2 }}>
                 <img width="120" src={imgPath} alt="" />
               </Paper>
             </Grid>
