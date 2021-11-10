@@ -1,5 +1,19 @@
+/* #ff8abd #d7dfef #212529
+
+    background-image: linear-gradient(
+135deg,#846ff4,#f17674);
+*/
+
+/* ------------------------------ //Google Font ----------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap");
+
 .App {
+  overflow-x: hidden;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   text-align: center;
+  max-width: 100%;
 }
 
 .App-logo {
