@@ -26,7 +26,7 @@ const Products = () => {
             variant="h4"
             sx={{ color: "#f17674", letterSpacing: "1px", fontWeight: "600" }}
           >
-            High-End Figures, Statues & Everything in Between
+            High-End Figures, Statues &amp; Everything in Between
           </Typography>
         </Container>
         <Container>
@@ -39,7 +39,7 @@ const Products = () => {
                     minHeight: "265px",
                     backgroundColor: backgroundColor,
                     my: 5,
-                    py: 1,
+                    p: 1,
                     "&:hover": {
                       cursor: "pointer",
                       color: "warning.light",

@@ -5,7 +5,6 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
-  Container,
   Divider,
   Grid,
   Typography,
@@ -33,10 +32,10 @@ const useStyles = makeStyles((Theme) => ({
       boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)",
     },
     "&:hover $media": {
-      transform: "scale(0.90)",
+      transform: "scaleX(1.090)",
     },
     "&:focus $media": {
-      transform: "scale(0.90)",
+      transform: "scaleX(1.090)",
     },
   },
   media: {
@@ -120,6 +119,7 @@ const FeaturedProducts = () => {
                 className={"MuiTypography--heading"}
                 variant={"h6"}
                 gutterBottom
+                color={deepPurple[600]}
               >
                 Nature Around Us
               </Typography>

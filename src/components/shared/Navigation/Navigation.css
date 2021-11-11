@@ -38,6 +38,9 @@
   text-decoration: none;
   padding: 0.5rem 1rem;
 }
+.style-links {
+  text-decoration: none;
+}
 
 .nav-links:hover {
   color: #81206d;
