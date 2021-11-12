@@ -70,6 +70,7 @@ export default function SignUp() {
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
+
         <Grid
           item
           xs={false}
@@ -86,6 +87,7 @@ export default function SignUp() {
             backgroundPosition: "center",
           }}
         />
+
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -96,6 +98,16 @@ export default function SignUp() {
               alignItems: "center",
             }}
           >
+            <Link to="/home">
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mb: 5 }}
+                color="secondary"
+              >
+                Go Back Home
+              </Button>
+            </Link>
             <Avatar sx={{ m: 1, bgcolor: "error.light" }}>
               <LockOutlinedIcon fontSize="large" />
             </Avatar>
@@ -137,10 +149,9 @@ export default function SignUp() {
                   <Grid item xs={12} sm={6}>
                     <TextField
                       {...register("lastName")}
-                      required
                       fullWidth
                       id="lastName"
-                      label="Last Name"
+                      label="Last Name (optional)"
                       name="lastName"
                       autoComplete="family-name"
                     />

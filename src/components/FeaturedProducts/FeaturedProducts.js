@@ -13,6 +13,7 @@ import { deepPurple, pink } from "@mui/material/colors";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import ShowMoreText from "react-show-more-text";
 import { fakeData } from "../../data/Data";
 import MuiButton from "../StyledComponent/MuiButton";
@@ -172,7 +173,9 @@ const FeaturedProducts = () => {
                     </Typography>
                     <FavoriteBorderRounded sx={{ color: "#ff8abd" }} />
                   </Box>
-                  <MuiButton sx={{ mt: 2 }}>Quick Buy</MuiButton>
+                  <Link to={`/product/${data?.index}`}>
+                    <MuiButton sx={{ mt: 2 }}>Quick Buy</MuiButton>
+                  </Link>
                 </Box>
               </Box>
             </CardContent>

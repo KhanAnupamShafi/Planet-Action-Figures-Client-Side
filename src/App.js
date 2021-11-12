@@ -3,10 +3,12 @@ import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
+import SingleProduct from "./components/SingleProduct/SingleProduct";
 import AuthProvider from "./context/AuthProvider";
 import ExploreAll from "./pages/ExploreAll/ExploreAll";
 import Home from "./pages/Home/Home";
 import NotFound from "./pages/NotFound/NotFound";
+import PrivateRoute from "./pages/SignUp/PrivateRoute/PrivateRoute";
 import SignIn from "./pages/SignUp/SignIn";
 import SignUp from "./pages/SignUp/SignUp";
 
@@ -93,6 +95,9 @@ function App() {
               <Route path="/explore">
                 <ExploreAll />
               </Route>
+              <PrivateRoute path="/product/:id">
+                <SingleProduct />
+              </PrivateRoute>
               <Route path="/login">
                 <SignIn />
               </Route>

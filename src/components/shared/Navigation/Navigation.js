@@ -75,7 +75,7 @@ const Navigation = () => {
           </li>
           {!user?.email ? (
             <li className="nav-item">
-              <Link to="/register" onClick={closeMobileMenu}>
+              <Link to="/login" onClick={closeMobileMenu}>
                 <MuiButton
                   sx={{
                     backgroundImage: `linear-gradient(130deg, #846ff4,#a200a6 50%, #846ff4)`,

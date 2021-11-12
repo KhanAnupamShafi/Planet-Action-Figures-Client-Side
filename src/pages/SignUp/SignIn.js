@@ -13,7 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import image from "../../images/Background/card-bg.jpg";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { Alert, CircularProgress } from "@mui/material";
 
@@ -39,6 +39,8 @@ const theme = createTheme();
 
 export default function SignIn() {
   const { user, signInUser, isLoading, error } = useAuth();
+  const location = useLocation();
+  const history = useHistory();
 
   // const handleSubmit = (event) => {
   //   event.preventDefault();
@@ -53,7 +55,7 @@ export default function SignIn() {
   const { register, handleSubmit, reset } = useForm({});
   const onSubmit = (data) => {
     console.log(data);
-    signInUser(data.email, data.password);
+    signInUser(data.email, data.password, location, history);
 
     reset();
   };
@@ -88,6 +90,16 @@ export default function SignIn() {
               alignItems: "center",
             }}
           >
+            <Link to="/home">
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mb: 5 }}
+                color="secondary"
+              >
+                Go Back Home
+              </Button>
+            </Link>
             <Avatar sx={{ m: 1, bgcolor: "error.light" }}>
               <LockOutlinedIcon fontSize="large" />
             </Avatar>

@@ -20,6 +20,7 @@ import blueBg from "../../images/Background/blue-bg.jpg";
 import { Loyalty, ShoppingCart } from "@mui/icons-material";
 import MuiButton from "../../components/StyledComponent/MuiButton";
 import cardBg from "../../images/Background/banner.jpg";
+import { Link } from "react-router-dom";
 
 const ExploreAll = () => {
   const useStyles = makeStyles({
@@ -195,9 +196,12 @@ const ExploreAll = () => {
                       <Divider />
                     </CardContent>
                     <CardActions sx={{ justifyContent: "center" }}>
-                      <MuiButton size="small" variant="contained">
-                        Purchase
-                      </MuiButton>
+                      <Link to={`/product/${data?.index}`}>
+                        <MuiButton size="small" variant="contained">
+                          Purchase
+                        </MuiButton>
+                      </Link>
+
                       <Button size="small">
                         <ShoppingCart />
                       </Button>

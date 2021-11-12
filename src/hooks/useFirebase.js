@@ -34,13 +34,15 @@ const useFirebase = () => {
       .finally(() => setIsLoading(false));
   };
 
-  const signInUser = (email, password) => {
+  const signInUser = (email, password, location, history) => {
     console.log("from firebase", email, password);
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         // Signed in
         const user = result.user;
+        const redirect_uri = location?.state?.from || "/";
+        history.replace(redirect_uri);
         setError("");
       })
       .catch((error) => {
