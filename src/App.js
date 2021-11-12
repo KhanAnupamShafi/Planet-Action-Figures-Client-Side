@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import SingleProduct from "./components/SingleProduct/SingleProduct";
 import AuthProvider from "./context/AuthProvider";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import ExploreAll from "./pages/ExploreAll/ExploreAll";
 import Home from "./pages/Home/Home";
 import NotFound from "./pages/NotFound/NotFound";
@@ -104,12 +105,11 @@ function App() {
               <Route path="/register">
                 <SignUp />
               </Route>
+              <Route path="/dashboard">
+                <Dashboard />
+              </Route>
 
-              {/*           
-          
-          <Route path="/users">
-            <Users />
-          </Route> */}
+              {/*404           */}
 
               <Route path="*">
                 <NotFound />

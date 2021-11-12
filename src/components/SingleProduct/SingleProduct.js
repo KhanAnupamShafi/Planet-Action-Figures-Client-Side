@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import Purchase from "../Purchase/Purchase";
 import Navigation from "../shared/Navigation/Navigation";
 
 const SingleProduct = () => {
@@ -8,7 +9,7 @@ const SingleProduct = () => {
   return (
     <div>
       <Navigation />
-      <h2>single product info</h2>
+      <Purchase />
     </div>
   );
 };
