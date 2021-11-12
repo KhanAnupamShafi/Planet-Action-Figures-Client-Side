@@ -16,6 +16,8 @@ import image from "../../images/Background/card-bg.jpg";
 import { Link, NavLink } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import useAuth from "../../hooks/useAuth";
+import { Alert, CircularProgress } from "@mui/material";
 
 const SignupSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
@@ -35,7 +37,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" to="https://planetactionfigures.com/">
+      <Link color="inherit" to="/">
         Planet Action Figures
       </Link>{" "}
       {new Date().getFullYear()}
@@ -47,28 +49,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const [registerData, setRegisterData] = React.useState({});
-
-  //   const handleSubmit = (event) => {
-  //     const data = new FormData(event.currentTarget);
-  //     // eslint-disable-next-line no-console
-
-  //     if (data.get("password") !== data.get("password2")) {
-  //       alert(":<");
-  //       return;
-  //     }
-
-  //     event.preventDefault();
-
-  //     const newData = {
-  //       email: data.get("email"),
-  //       password: data.get("password"),
-  //       firstName: data.get("firstName"),
-  //       lastName: data.get("lastName"),
-  //     };
-
-  //     setRegisterData(newData);
-  //   };
+  const { user, isLoading, registerUser, error } = useAuth();
 
   const {
     register,
@@ -80,6 +61,8 @@ export default function SignUp() {
   });
   const onSubmit = (data) => {
     console.log(data);
+    registerUser(data.email, data.password);
+
     reset();
   };
 
@@ -126,120 +109,142 @@ export default function SignUp() {
                 Up
               </Typography>
             </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit(onSubmit)}
-              sx={{ mt: 3 }}
-            >
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    {...register("firstName")}
-                    autoComplete="given-name"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    autoFocus
-                  />
-                  {errors.firstName && (
-                    <Typography variant="caption" component="p" color="error">
-                      {errors.firstName.message}
-                    </Typography>
-                  )}
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    {...register("lastName")}
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="family-name"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    {...register("email")}
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
-                  />
-                  {errors.email && (
-                    <Typography variant="caption" component="p" color="error">
-                      {errors.email.message}
-                    </Typography>
-                  )}
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    {...register("password")}
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="new-password"
-                  />
-                  {errors.password && (
-                    <Typography variant="caption" component="p" color="error">
-                      {errors.password.message}
-                    </Typography>
-                  )}
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    {...register("password2")}
-                    required
-                    fullWidth
-                    name="password2"
-                    label="Confirm Password"
-                    type="password"
-                    id="password2"
-                    autoComplete="confirm-password"
-                  />
-                  {errors.password2 && (
-                    <Typography variant="caption" component="p" color="error">
-                      {errors.password2.message}
-                    </Typography>
-                  )}
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox value="allowExtraEmails" color="primary" />
-                    }
-                    label="I want to receive inspiration, marketing promotions and updates via email."
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                color="secondary"
+
+            {!isLoading ? (
+              <Box
+                component="form"
+                noValidate
+                onSubmit={handleSubmit(onSubmit)}
+                sx={{ mt: 3 }}
               >
-                Sign Up
-              </Button>
-              <Grid container justifyContent="flex-end">
-                <Grid item>
-                  <NavLink to="/login" variant="body2" className="style-links">
-                    Already have an account?{" "}
-                    <Button variant="contained" color="warning" sx={{ ml: 2 }}>
-                      Sign In
-                    </Button>{" "}
-                  </NavLink>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      {...register("firstName")}
+                      autoComplete="given-name"
+                      required
+                      fullWidth
+                      id="firstName"
+                      label="First Name"
+                      autoFocus
+                    />
+                    {errors.firstName && (
+                      <Typography variant="caption" component="p" color="error">
+                        {errors.firstName.message}
+                      </Typography>
+                    )}
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      {...register("lastName")}
+                      required
+                      fullWidth
+                      id="lastName"
+                      label="Last Name"
+                      name="lastName"
+                      autoComplete="family-name"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      {...register("email")}
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      autoComplete="email"
+                    />
+                    {errors.email && (
+                      <Typography variant="caption" component="p" color="error">
+                        {errors.email.message}
+                      </Typography>
+                    )}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      {...register("password")}
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      autoComplete="new-password"
+                    />
+
+                    {errors.password && (
+                      <Typography variant="caption" component="p" color="error">
+                        {errors.password.message}
+                      </Typography>
+                    )}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      {...register("password2")}
+                      required
+                      fullWidth
+                      name="password2"
+                      label="Confirm Password"
+                      type="password"
+                      id="password2"
+                      autoComplete="confirm-password"
+                    />
+                    {errors.password2 && (
+                      <Typography variant="caption" component="p" color="error">
+                        {errors.password2.message}
+                      </Typography>
+                    )}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox value="allowExtraEmails" color="primary" />
+                      }
+                      label="I want to receive inspiration, marketing promotions and updates via email."
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Box>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  color="secondary"
+                >
+                  Sign Up
+                </Button>
+                <Grid container justifyContent="flex-end">
+                  <Grid item>
+                    <NavLink
+                      to="/login"
+                      variant="body2"
+                      className="style-links"
+                    >
+                      Already have an account?{" "}
+                      <Button
+                        variant="contained"
+                        color="warning"
+                        sx={{ ml: 2 }}
+                      >
+                        Sign In
+                      </Button>{" "}
+                    </NavLink>
+                  </Grid>
+                </Grid>
+              </Box>
+            ) : (
+              <Box sx={{ mt: 3 }}>
+                {" "}
+                <CircularProgress color="secondary" />
+              </Box>
+            )}
+            {error && <Alert severity="error">{error}</Alert>}
+            {user?.email && (
+              <Alert severity="success">Successfully Created User</Alert>
+            )}
           </Box>
+
           <Copyright sx={{ mt: 5 }} />
         </Grid>
       </Grid>

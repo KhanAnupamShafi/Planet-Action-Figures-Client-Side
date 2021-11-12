@@ -3,6 +3,7 @@ import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
+import AuthProvider from "./context/AuthProvider";
 import ExploreAll from "./pages/ExploreAll/ExploreAll";
 import Home from "./pages/Home/Home";
 import NotFound from "./pages/NotFound/NotFound";
@@ -74,43 +75,45 @@ const theme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <div className="App">
-        <Router>
-          {/* A <Switch> looks through its children <Route>s and
+    <AuthProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="App">
+          <Router>
+            {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
 
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/home">
-              <Home />
-            </Route>
-            <Route path="/explore">
-              <ExploreAll />
-            </Route>
-            <Route path="/login">
-              <SignIn />
-            </Route>
-            <Route path="/register">
-              <SignUp />
-            </Route>
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/home">
+                <Home />
+              </Route>
+              <Route path="/explore">
+                <ExploreAll />
+              </Route>
+              <Route path="/login">
+                <SignIn />
+              </Route>
+              <Route path="/register">
+                <SignUp />
+              </Route>
 
-            {/*           
+              {/*           
           
           <Route path="/users">
             <Users />
           </Route> */}
 
-            <Route path="*">
-              <NotFound />
-            </Route>
-          </Switch>
-        </Router>
-      </div>
-    </ThemeProvider>
+              <Route path="*">
+                <NotFound />
+              </Route>
+            </Switch>
+          </Router>
+        </div>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 
