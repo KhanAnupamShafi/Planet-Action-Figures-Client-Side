@@ -5,6 +5,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 
 import { Chip } from "@mui/material";
+import { Box } from "@mui/system";
 
 export default function OrderReview({ singleProduct }) {
   const products = [
@@ -45,24 +46,32 @@ export default function OrderReview({ singleProduct }) {
             alignItems: "center",
           }}
         >
-          <Typography
-            variant="h4"
-            color="primary"
-            sx={{ fontWeight: 700, mr: "10px" }}
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+            }}
           >
-            $ {singleProduct?.price}
-          </Typography>
-          <ListItemText
-            primary={
-              <Chip
-                label="In Stock"
-                color="success"
-                sx={{ mr: "auto", ml: 2 }}
-              />
-            }
-            sx={{ color: "red", fontSize: "22px" }}
-          />
-
+            <Typography
+              variant="h4"
+              color="primary"
+              sx={{ fontWeight: 700, mr: "10px" }}
+            >
+              $ {singleProduct?.price}
+            </Typography>
+            <ListItemText
+              primary={
+                <Chip
+                  label="In Stock"
+                  color="success"
+                  sx={{ mr: "auto", ml: 2 }}
+                />
+              }
+              sx={{ color: "red", fontSize: "22px" }}
+            />
+          </Box>
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
             Free Shipping
           </Typography>

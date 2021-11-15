@@ -20,7 +20,7 @@ const MakeAdmin = () => {
   const onSubmit = (data) => {
     //Update email to server
 
-    fetch("http://localhost:5000/users/admin", {
+    fetch("https://murmuring-bayou-10657.herokuapp.com/users/admin", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

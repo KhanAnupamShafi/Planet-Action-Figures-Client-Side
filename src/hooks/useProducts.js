@@ -5,7 +5,7 @@ const useProducts = () => {
 
   const [productsAll, setProductsAll] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("https://murmuring-bayou-10657.herokuapp.com/products")
       .then((res) => res.json())
       .then((data) => {
         setProductsAll(data);

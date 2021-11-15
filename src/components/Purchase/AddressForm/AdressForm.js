@@ -53,7 +53,7 @@ export default function AddressForm({
       status: "pending",
     };
 
-    fetch("http://localhost:5000/orders", {
+    fetch("https://murmuring-bayou-10657.herokuapp.com/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderDetails),
@@ -62,7 +62,7 @@ export default function AddressForm({
       .then((result) => {
         if (result.insertedId) {
           setConfiremedOrder(true);
-          console.log(result);
+          window.scrollTo(0, 0);
 
           reset();
         }

@@ -1,7 +1,10 @@
 import { KeyboardArrowUp } from "@mui/icons-material";
 import { createTheme, CssBaseline, Fab, ThemeProvider } from "@mui/material";
 import React from "react";
+import Banner from "../../components/Banner/Banner";
 import Featured from "../../components/Featured/Featured";
+import Footer from "../../components/Footer/Footer";
+import Media from "../../components/Media/Media";
 import Products from "../../components/Products/Products";
 import ReviewCollection from "../../components/ReviewCollection/ReviewCollection";
 import Navigation from "../../components/shared/Navigation/Navigation";
@@ -48,12 +51,17 @@ const Home = (props) => {
     <ThemeProvider theme={theme}>
       <div>
         <CssBaseline />
+
         <Navigation />
-
+        <Banner />
         <Featured />
-
+        <Media />
+        {/* 
+        
+       */}
         <Products />
         <ReviewCollection />
+        <Footer />
         <ScrollToTop {...props}>
           <Fab color="secondary" size="large" aria-label="scroll back to top">
             <KeyboardArrowUp />

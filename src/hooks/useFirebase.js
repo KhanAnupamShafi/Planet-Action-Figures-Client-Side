@@ -52,7 +52,7 @@ const useFirebase = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         // Signed in
-        const user = result.user;
+        // const user = result.user;
         const redirect_uri = location?.state?.from || "/";
         history.replace(redirect_uri);
         setError("");
@@ -80,7 +80,7 @@ const useFirebase = () => {
   const saveUserToDb = (email, displayName) => {
     const user = { email, displayName };
 
-    fetch("http://localhost:5000/users", {
+    fetch("https://murmuring-bayou-10657.herokuapp.com/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
@@ -91,7 +91,7 @@ const useFirebase = () => {
 
   //check admin
   useEffect(() => {
-    const url = `http://localhost:5000/users/${user?.email}`;
+    const url = `https://murmuring-bayou-10657.herokuapp.com/users/${user?.email}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -112,7 +112,8 @@ const useFirebase = () => {
     });
 
     return () => unsubscribe;
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth]);
 
   return { user, admin, registerUser, signInUser, logOut, isLoading, error };
 };

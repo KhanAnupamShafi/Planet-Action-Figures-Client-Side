@@ -1,6 +1,6 @@
 .navbar {
   background: linear-gradient(90deg, #f73964, #e30849, #f3124c, #ba0045);
-
+  z-index: 1000;
   width: 100%;
   height: 120px;
   display: flex;
@@ -88,7 +88,7 @@
     left: 0;
     opacity: 1;
     transition: all 0.5s ease;
-    z-index: 1;
+    z-index: 10;
   }
 
   .nav-links {

@@ -93,7 +93,7 @@ const Navigation = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <Typography>Hello</Typography>
+                <Typography sx={{ color: "#1f5f5f" }}>Hello</Typography>
                 <Chip
                   label={user?.displayName}
                   color="primary"
@@ -113,6 +113,7 @@ const Navigation = () => {
                 <MuiButton
                   sx={{
                     backgroundImage: `linear-gradient(130deg, #846ff4,#4E004A 50%, #846ff4)`,
+                    width: "150px",
                   }}
                   onClick={logOut}
                 >

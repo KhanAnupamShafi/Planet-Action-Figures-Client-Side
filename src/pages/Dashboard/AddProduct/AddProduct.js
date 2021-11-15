@@ -41,7 +41,7 @@ const AddProduct = () => {
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = (data) => {
     //Post products to be added
-    fetch("http://localhost:5000/products", {
+    fetch("https://murmuring-bayou-10657.herokuapp.com/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

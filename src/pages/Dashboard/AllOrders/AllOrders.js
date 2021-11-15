@@ -29,7 +29,7 @@ export default function AllOrders() {
   //Get Orders
 
   useEffect(() => {
-    const url = `http://localhost:5000/orders/all`;
+    const url = `https://murmuring-bayou-10657.herokuapp.com/orders/all`;
 
     fetch(url)
       .then((res) => res.json())
@@ -51,7 +51,9 @@ export default function AllOrders() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/orders/all/${id}`, { method: "DELETE" })
+        fetch(`https://murmuring-bayou-10657.herokuapp.com/orders/all/${id}`, {
+          method: "DELETE",
+        })
           .then((res) => res.json())
           .then((result) => {
             const remaining = orders.filter((order) => order._id !== id);
@@ -79,7 +81,7 @@ export default function AllOrders() {
       text: "Order Successfully shipped..",
       footer: '<a href="/">Home</a>',
     }).then(() => {
-      fetch("http://localhost:5000/orders/all", {
+      fetch("https://murmuring-bayou-10657.herokuapp.com/orders/all", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

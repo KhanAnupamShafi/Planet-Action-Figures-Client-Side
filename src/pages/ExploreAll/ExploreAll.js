@@ -15,7 +15,7 @@ import { Box } from "@mui/system";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 import Navigation from "../../components/shared/Navigation/Navigation";
-
+import Typewriter from "typewriter-effect";
 import blueBg from "../../images/Background/blue-bg.jpg";
 import { Loyalty, ShoppingCart } from "@mui/icons-material";
 import MuiButton from "../../components/StyledComponent/MuiButton";
@@ -89,6 +89,29 @@ const ExploreAll = () => {
         }}
       >
         <Container maxWidth="sm">
+          <Container display={{ xs: "none", md: "block" }}>
+            <Typography variant="div" display={{ xs: "none", md: "block" }}>
+              <Typewriter
+                options={{
+                  autoStart: true,
+                  loop: true,
+                  delay: 75,
+                  deleteSpeed: 1,
+                }}
+                onInit={(typewriter) => {
+                  typewriter
+                    .typeString("Mighty Thor Animated Style Statue")
+                    .deleteAll()
+                    .typeString("DISNEY+ DAY DEALS")
+                    .deleteAll()
+                    .typeString("Black Friday Deals")
+                    .deleteAll()
+                    .start();
+                }}
+              />
+            </Typography>
+          </Container>
+
           <Typography
             component="h1"
             variant="h2"
@@ -167,12 +190,7 @@ const ExploreAll = () => {
                       <CardContent
                         sx={{ flexGrow: 1, justifyContent: "space-around" }}
                       >
-                        <Typography
-                          gutterBottom
-                          variant="h6"
-                          component="h2"
-                          color="secondary"
-                        >
+                        <Typography gutterBottom variant="h6" color="secondary">
                           {data?.title}
                         </Typography>
                         <ShowMoreText
@@ -193,12 +211,7 @@ const ExploreAll = () => {
 
                         <Divider />
                         <Divider sx={{ mb: 2 }} />
-                        <Typography
-                          gutterBottom
-                          variant="h5"
-                          fontWeight={600}
-                          component="h2"
-                        >
+                        <Typography gutterBottom variant="h5" fontWeight={600}>
                           ${data?.price}
                         </Typography>
                         <Box
@@ -207,11 +220,7 @@ const ExploreAll = () => {
                             justifyContent: "space-between",
                           }}
                         >
-                          <Typography
-                            gutterBottom
-                            variant="subtitle1"
-                            component="h2"
-                          >
+                          <Typography gutterBottom variant="subtitle1">
                             From:
                             <Typography
                               sx={{ ml: 1 }}
@@ -222,11 +231,7 @@ const ExploreAll = () => {
                               {data?.brand}
                             </Typography>
                           </Typography>
-                          <Typography
-                            gutterBottom
-                            variant="subtitle1"
-                            component="h2"
-                          >
+                          <Typography gutterBottom variant="subtitle1">
                             By:
                             <Typography
                               sx={{ ml: 1 }}

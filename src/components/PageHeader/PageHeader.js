@@ -38,7 +38,7 @@ const PageHeader = (props) => {
           </Grid>
           <Grid item xs={12} sm={12} md={11}>
             <Box className={classes.pageTitle}>
-              <Typography variant="h4" component="h1" gutterBottom>
+              <Typography variant="h5" component="h1" gutterBottom>
                 {title}
               </Typography>
               <Typography variant="body2" component="div">

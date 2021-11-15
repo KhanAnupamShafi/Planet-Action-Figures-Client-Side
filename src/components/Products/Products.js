@@ -1,7 +1,7 @@
 import { Container, Divider, Grid, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import { Fade, Flip } from "react-reveal";
+import { Flip } from "react-reveal";
 import { dataGoals } from "../../data/Data";
 import FeaturedProducts from "../FeaturedProducts/FeaturedProducts";
 

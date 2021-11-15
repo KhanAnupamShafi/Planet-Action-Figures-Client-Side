@@ -182,9 +182,7 @@ const FeaturedProducts = () => {
                           }}
                         >
                           <Typography variant="subtitle2" fontSize="large">
-                            <Typography variant="overline" component="span">
-                              $
-                            </Typography>
+                            <Typography variant="overline">$</Typography>
                             {data?.price}
                           </Typography>
                           <FavoriteBorderRounded sx={{ color: "#ff8abd" }} />

@@ -1,8 +1,11 @@
-import { Container, Grid, Paper, Typography } from "@mui/material";
+import { Button, Container, Grid, Paper, Typography } from "@mui/material";
+import { purple } from "@mui/material/colors";
 
 import { makeStyles } from "@mui/styles";
+import { Box } from "@mui/system";
 import React from "react";
 import { Slide } from "react-reveal";
+import { Link } from "react-router-dom";
 import { images } from "../../data/Data";
 
 const useStyles = makeStyles({
@@ -21,10 +24,21 @@ const Featured = () => {
   console.log(images);
   return (
     <Container maxWidth="xl">
+      <Box component={Link} to="/explore" style={{ textDecoration: "none" }}>
+        <Button
+          variant="outlined"
+          color="warning"
+          sx={{
+            "&:hover": { bgcolor: purple[400], color: "#f3f3f3" },
+          }}
+        >
+          Shop Now
+        </Button>
+      </Box>
+
       <Typography variant="h5" sx={{ my: 3 }}>
-        Welcome to{" "}
         <span className={classes.textGradient}>Planetactionfigure.com!</span>{" "}
-        The best selection of collectibles, toys and more!
+        has the best selection of collectibles, toys and more!
       </Typography>
       <Grid
         container
@@ -38,7 +52,7 @@ const Featured = () => {
             <Grid item xs={6} sm={4} md={4} lg={2}>
               <Slide left cascade>
                 <Paper elevation={0} sx={{ my: 2 }}>
-                  <img width="120" src={imgPath} alt="" />
+                  <img width="160" height="120" src={imgPath} alt="" />
                 </Paper>
               </Slide>
             </Grid>

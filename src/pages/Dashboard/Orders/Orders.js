@@ -27,11 +27,12 @@ export default function Orders() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const url = `http://localhost:5000/orders/?email=${user?.email}`;
+    const url = `https://murmuring-bayou-10657.herokuapp.com/orders/?email=${user?.email}`;
 
     fetch(url)
       .then((res) => res.json())
       .then((result) => setOrders(result));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //handle delete order
@@ -48,7 +49,9 @@ export default function Orders() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/orders/all/${id}`, { method: "DELETE" })
+        fetch(`https://murmuring-bayou-10657.herokuapp.com/orders/all/${id}`, {
+          method: "DELETE",
+        })
           .then((res) => res.json())
           .then((result) => {
             const remaining = orders.filter((order) => order._id !== id);

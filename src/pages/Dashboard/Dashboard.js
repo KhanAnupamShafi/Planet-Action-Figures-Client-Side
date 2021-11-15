@@ -16,6 +16,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import {
+  Chip,
   createTheme,
   Grid,
   ListItemButton,
@@ -51,8 +52,7 @@ const drawerWidth = 240;
 
 function Dashboard(props) {
   const { user, admin, logOut } = useAuth();
-  console.log(admin);
-  console.log(user);
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   let { path, url } = useRouteMatch();
@@ -153,7 +153,9 @@ function Dashboard(props) {
           <Box
             sx={{
               bgcolor: "rgba(71, 98, 130, 0.2)",
+              p: 1,
               pb: 2,
+              textAlign: "center",
             }}
           >
             {!admin ? (
@@ -220,6 +222,7 @@ function Dashboard(props) {
               </>
             )}
             <Divider />
+            {admin && <Chip label="Admin" color="error" variant="outlined" />}
             <Grid container spacing={2}>
               <Grid item xs>
                 <Typography variant="subtitle2" noWrap component="div">

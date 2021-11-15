@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Purchase from "../Purchase/Purchase";
@@ -8,7 +9,7 @@ const SingleProduct = () => {
   const [singleProduct, setSingleProduct] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:5000/products/${id}`)
+    fetch(`https://murmuring-bayou-10657.herokuapp.com/products/${id}`)
       .then((response) => response.json())
       .then((data) => setSingleProduct(data));
   }, []);
