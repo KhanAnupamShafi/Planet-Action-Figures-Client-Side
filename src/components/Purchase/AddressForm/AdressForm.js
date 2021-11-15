@@ -76,8 +76,8 @@ export default function AddressForm({
         onSubmit={handleSubmit(onSubmit)}
         sx={{ mt: 1 }}
       >
-        <Typography variant="h6" gutterBottom sx={{ color: "warning.light" }}>
-          Hello anupam
+        <Typography variant="h5" gutterBottom sx={{ color: "warning.dark" }}>
+          Hello {user.displayName}
         </Typography>
         <Typography
           variant="subtitle2"

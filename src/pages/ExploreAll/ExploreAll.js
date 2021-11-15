@@ -19,11 +19,12 @@ import Typewriter from "typewriter-effect";
 import blueBg from "../../images/Background/blue-bg.jpg";
 import { Loyalty, ShoppingCart } from "@mui/icons-material";
 import MuiButton from "../../components/StyledComponent/MuiButton";
-import cardBg from "../../images/Background/banner.jpg";
+import cardBg from "../../images/Background/bg.jpg";
 import { Link } from "react-router-dom";
 import useProducts from "../../hooks/useProducts";
 import ShowMoreText from "react-show-more-text";
 import { Zoom } from "react-reveal";
+import Footer from "../../components/Footer/Footer";
 
 const ExploreAll = () => {
   const { productsAll } = useProducts();
@@ -44,13 +45,11 @@ const ExploreAll = () => {
     },
 
     box: {
-      background: `url(${cardBg}), linear-gradient(#660024, transparent),        
-          linear-gradient(to top right, #F2462E, transparent)`,
-      backgroundPosition: "top center",
+      background: `url(${cardBg})`,
+      backgroundPosition: "center",
       backgroundSize: "cover",
       backgroundAttachment: "fixed",
       backgroundRepeat: "no-repeat",
-      backgroundBlendMode: "color-dodge",
     },
     items: {
       cursor: "pointer",
@@ -146,6 +145,7 @@ const ExploreAll = () => {
       <Box className={classes.box}>
         <Container
           sx={{
+            px: 3,
             py: 8,
             overflow: "hidden",
             bgcolor: "rgba(	0, 0, 0, .5)",
@@ -190,7 +190,12 @@ const ExploreAll = () => {
                       <CardContent
                         sx={{ flexGrow: 1, justifyContent: "space-around" }}
                       >
-                        <Typography gutterBottom variant="h6" color="secondary">
+                        <Typography
+                          gutterBottom
+                          variant="h6"
+                          sx={{ fontSize: 18 }}
+                          color="secondary"
+                        >
                           {data?.title}
                         </Typography>
                         <ShowMoreText
@@ -265,6 +270,7 @@ const ExploreAll = () => {
           </Grid>
         </Container>
       </Box>
+      <Footer />
     </div>
   );
 };

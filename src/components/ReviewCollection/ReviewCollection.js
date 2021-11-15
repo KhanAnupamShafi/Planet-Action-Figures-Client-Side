@@ -25,9 +25,13 @@ const ReviewCollection = () => {
           </Avatar>
         }
       />
-      <Container>
+      <Container sx={{ bgcolor: "red", py: 2 }}>
         {reviews.map(({ _id, name, rating, title, review }) => (
-          <Paper key={_id} elevation={5} sx={{ mt: 4, p: 5 }}>
+          <Paper
+            key={_id}
+            elevation={5}
+            sx={{ mt: 4, p: 5, bgcolor: "#F3D8CD" }}
+          >
             <Box
               sx={{
                 display: "flex",

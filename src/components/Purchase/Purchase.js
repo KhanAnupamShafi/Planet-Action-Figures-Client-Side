@@ -106,11 +106,12 @@ export default function Purchase({ singleProduct }) {
         elevation={0}
         sx={{
           position: "relative",
+          zIndex: 0,
           borderBottom: (t) => `1px solid ${t.palette.divider}`,
         }}
       >
         <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
+          <Typography variant="h6" color="inherit">
             Order Review
           </Typography>
         </Toolbar>

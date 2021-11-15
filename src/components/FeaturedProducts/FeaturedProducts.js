@@ -41,6 +41,7 @@ const useStyles = makeStyles((Theme) => ({
     "&:focus $media": {
       transform: "scaleX(1.090)",
     },
+    marginBottom: 50,
   },
   media: {
     paddingTop: "70.25%",
