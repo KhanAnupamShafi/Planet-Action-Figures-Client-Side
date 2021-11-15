@@ -15,14 +15,19 @@ import { Box } from "@mui/system";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 import Navigation from "../../components/shared/Navigation/Navigation";
-import { fakeData } from "../../data/Data";
+
 import blueBg from "../../images/Background/blue-bg.jpg";
 import { Loyalty, ShoppingCart } from "@mui/icons-material";
 import MuiButton from "../../components/StyledComponent/MuiButton";
 import cardBg from "../../images/Background/banner.jpg";
 import { Link } from "react-router-dom";
+import useProducts from "../../hooks/useProducts";
+import ShowMoreText from "react-show-more-text";
+import { Zoom } from "react-reveal";
 
 const ExploreAll = () => {
+  const { productsAll } = useProducts();
+
   const useStyles = makeStyles({
     bg: {
       background: `url(${blueBg}), linear-gradient(#660024, transparent),
@@ -129,85 +134,127 @@ const ExploreAll = () => {
             container
             columnSpacing={{ xs: 0, sm: 2, md: 5 }}
             spacing={5}
-            sx={{ p: 2 }}
+            sx={{ p: 1 }}
           >
-            {fakeData.map((data, index) => (
-              <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
-                <Badge
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "left",
-                  }}
-                  color="secondary"
-                  overlap="rectangular"
-                  variant="rectangular"
-                  badgeContent={data.isLimited ? "Limited" : <Loyalty />}
-                >
-                  <Card
-                    className={classes.items}
-                    sx={{
-                      height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      overflow: "hidden",
+            {productsAll.map((data, index) => (
+              <Grid item key={data?._id} xs={12} sm={6} md={4} lg={3}>
+                <Zoom cascade>
+                  <Badge
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
                     }}
+                    color="secondary"
+                    overlap="rectangular"
+                    variant="rectangular"
+                    badgeContent={data?.isLimited ? "Limited" : <Loyalty />}
                   >
-                    <CardMedia
-                      component="img"
-                      className={classes.media}
-                      image="https://source.unsplash.com/random"
-                      alt="random"
-                    />
-                    <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography
-                        gutterBottom
-                        variant="h5"
-                        component="h2"
-                        color="secondary"
+                    <Card
+                      className={classes.items}
+                      sx={{
+                        height: "600px",
+                        display: "flex",
+                        flexDirection: "column",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <CardMedia
+                        component="img"
+                        className={classes.media}
+                        image={data?.image}
+                        alt="toy picture"
+                      />
+                      <CardContent
+                        sx={{ flexGrow: 1, justifyContent: "space-around" }}
                       >
-                        Heading
-                      </Typography>
-                      <Typography gutterBottom variant="body2">
-                        This is a media card. You can use this section to
-                        describe the content.
-                      </Typography>
-                      <Divider />
-                      <Divider />
-                      <Typography gutterBottom variant="h6" component="h2">
-                        $ 333
-                      </Typography>
-                      <Typography
-                        gutterBottom
-                        variant="subtitle2"
-                        component="h2"
-                      >
-                        From:
                         <Typography
-                          sx={{ ml: 2 }}
                           gutterBottom
-                          variant="subtitle1"
-                          component="span"
+                          variant="h6"
+                          component="h2"
+                          color="secondary"
                         >
-                          Marvel Iron Star
+                          {data?.title}
                         </Typography>
-                      </Typography>
+                        <ShowMoreText
+                          /* Default options */
+                          lines={3}
+                          more="Show more"
+                          less="Show less"
+                          className="content-css"
+                          anchorClass="my-anchor-css-class"
+                          expanded={false}
+                          width={280}
+                          truncatedEndingComponent={"... "}
+                        >
+                          <Typography gutterBottom variant="body2">
+                            {data?.description}
+                          </Typography>
+                        </ShowMoreText>
 
-                      <Divider />
-                      <Divider />
-                    </CardContent>
-                    <CardActions sx={{ justifyContent: "center" }}>
-                      <Link to={`/product/${data?.index}`}>
-                        <MuiButton size="small" variant="contained">
-                          Purchase
-                        </MuiButton>
-                      </Link>
+                        <Divider />
+                        <Divider sx={{ mb: 2 }} />
+                        <Typography
+                          gutterBottom
+                          variant="h5"
+                          fontWeight={600}
+                          component="h2"
+                        >
+                          ${data?.price}
+                        </Typography>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Typography
+                            gutterBottom
+                            variant="subtitle1"
+                            component="h2"
+                          >
+                            From:
+                            <Typography
+                              sx={{ ml: 1 }}
+                              gutterBottom
+                              variant="subtitle2"
+                              color="error.light"
+                            >
+                              {data?.brand}
+                            </Typography>
+                          </Typography>
+                          <Typography
+                            gutterBottom
+                            variant="subtitle1"
+                            component="h2"
+                          >
+                            By:
+                            <Typography
+                              sx={{ ml: 1 }}
+                              gutterBottom
+                              variant="subtitle2"
+                              color="error.light"
+                            >
+                              {data?.manufacturer}
+                            </Typography>
+                          </Typography>
+                        </Box>
 
-                      <Button size="small">
-                        <ShoppingCart />
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Badge>
+                        <Divider />
+                      </CardContent>
+                      <CardActions sx={{ justifyContent: "center" }}>
+                        <Link to={`/product/${data?._id}`}>
+                          <MuiButton size="small" variant="contained">
+                            Purchase
+                          </MuiButton>
+                        </Link>
+
+                        <Button size="small">
+                          <ShoppingCart />
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </Badge>
+                </Zoom>
               </Grid>
             ))}
           </Grid>

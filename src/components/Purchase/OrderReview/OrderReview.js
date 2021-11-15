@@ -6,20 +6,22 @@ import ListItemText from "@mui/material/ListItemText";
 
 import { Chip } from "@mui/material";
 
-const products = [
-  {
-    name: "By",
-    desc: "A nice thing",
-    price: "$9.99",
-  },
-];
+export default function OrderReview({ singleProduct }) {
+  const products = [
+    {
+      name: "By",
+      desc: singleProduct?.manufacturer,
+      price: singleProduct?.price,
+    },
+  ];
 
-export default function OrderReview() {
   return (
     <React.Fragment>
-      <Chip label="Limited Edition" color="warning" sx={{ mr: "auto" }} />
+      {singleProduct?.isLimited && (
+        <Chip label="Limited Edition" color="warning" sx={{ mr: "auto" }} />
+      )}
       <Typography variant="h4" gutterBottom sx={{ fontWeight: "800" }}>
-        Cosbaby Venomized Groot Bobble
+        {singleProduct?.title}
       </Typography>
       <List disablePadding>
         {products.map((product) => (
@@ -29,7 +31,9 @@ export default function OrderReview() {
               secondary={product.desc}
               sx={{ color: "red" }}
             />
-            <Typography variant="body2">Brand: Marvel</Typography>
+            <Typography variant="body2">
+              Brand: {singleProduct.brand}
+            </Typography>
           </ListItem>
         ))}
 
@@ -46,7 +50,7 @@ export default function OrderReview() {
             color="primary"
             sx={{ fontWeight: 700, mr: "10px" }}
           >
-            $ 454
+            $ {singleProduct?.price}
           </Typography>
           <ListItemText
             primary={

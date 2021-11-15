@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import SingleProduct from "./components/SingleProduct/SingleProduct";
 import AuthProvider from "./context/AuthProvider";
+import ScrollTop from "./hooks/scrollTop";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import ExploreAll from "./pages/ExploreAll/ExploreAll";
 import Home from "./pages/Home/Home";
@@ -59,9 +60,9 @@ const theme = createTheme({
       contrastText: "#ffecb3",
     },
     secondary: {
-      main: "#C01D2C",
+      main: "#19283f ",
       light: "#af5c59",
-      dark: "#4b0108",
+      dark: "#af5c59",
     },
   },
 
@@ -83,10 +84,17 @@ function App() {
         <CssBaseline />
         <div className="App">
           <Router>
+            <ScrollTop />
             {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
 
             <Switch>
+              <PrivateRoute path="/dashboard">
+                <Dashboard />
+              </PrivateRoute>
+              <PrivateRoute path="/product/:id">
+                <SingleProduct />
+              </PrivateRoute>
               <Route exact path="/">
                 <Home />
               </Route>
@@ -96,17 +104,11 @@ function App() {
               <Route path="/explore">
                 <ExploreAll />
               </Route>
-              <PrivateRoute path="/product/:id">
-                <SingleProduct />
-              </PrivateRoute>
               <Route path="/login">
                 <SignIn />
               </Route>
               <Route path="/register">
                 <SignUp />
-              </Route>
-              <Route path="/dashboard">
-                <Dashboard />
               </Route>
 
               {/*404           */}

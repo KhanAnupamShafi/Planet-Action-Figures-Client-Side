@@ -1,8 +1,11 @@
-import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { KeyboardArrowUp } from "@mui/icons-material";
+import { createTheme, CssBaseline, Fab, ThemeProvider } from "@mui/material";
 import React from "react";
 import Featured from "../../components/Featured/Featured";
 import Products from "../../components/Products/Products";
+import ReviewCollection from "../../components/ReviewCollection/ReviewCollection";
 import Navigation from "../../components/shared/Navigation/Navigation";
+import ScrollToTop from "./ScrollToTop";
 
 export const theme = createTheme({
   palette: {
@@ -40,7 +43,7 @@ export const theme = createTheme({
   },
 });
 
-const Home = () => {
+const Home = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -50,6 +53,12 @@ const Home = () => {
         <Featured />
 
         <Products />
+        <ReviewCollection />
+        <ScrollToTop {...props}>
+          <Fab color="secondary" size="large" aria-label="scroll back to top">
+            <KeyboardArrowUp />
+          </Fab>
+        </ScrollToTop>
       </div>
     </ThemeProvider>
   );

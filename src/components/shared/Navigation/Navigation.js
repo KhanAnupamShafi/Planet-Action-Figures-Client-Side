@@ -1,5 +1,9 @@
-import { CloseTwoTone, MenuTwoTone } from "@mui/icons-material";
-import { Divider } from "@mui/material";
+import {
+  AccountCircleTwoTone,
+  CloseTwoTone,
+  MenuTwoTone,
+} from "@mui/icons-material";
+import { Avatar, Chip, Divider, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
@@ -16,7 +20,7 @@ const Navigation = () => {
 
   return (
     <>
-      <nav className="navbar">
+      <nav id="back-to-top-anchor" className="navbar">
         <Link to="/" onClick={closeMobileMenu}>
           <img className="logo" src={logo} alt="" />
         </Link>
@@ -59,20 +63,7 @@ const Navigation = () => {
             {/* {dropdown && <Dropdown />} */}
           </li>
           <Divider orientation="vertical" flexItem />
-          <li className="nav-item">
-            <NavLink
-              activeStyle={{
-                color: "#81206d",
-                backgroundColor: "#e4bfe7",
-                borderRadius: "6px",
-              }}
-              to="/dashboard"
-              className="nav-links"
-              onClick={closeMobileMenu}
-            >
-              Dashboard
-            </NavLink>
-          </li>
+
           {!user?.email ? (
             <li className="nav-item">
               <Link to="/login" onClick={closeMobileMenu}>
@@ -86,16 +77,49 @@ const Navigation = () => {
               </Link>
             </li>
           ) : (
-            <li className="nav-item">
-              <MuiButton
-                sx={{
-                  backgroundImage: `linear-gradient(130deg, #846ff4,#a200a6 50%, #846ff4)`,
-                }}
-                onClick={logOut}
-              >
-                Log Out
-              </MuiButton>
-            </li>
+            <React.Fragment>
+              <li className="nav-item">
+                <NavLink
+                  activeStyle={{
+                    color: "#81206d",
+                    backgroundColor: "#e4bfe7",
+                    borderRadius: "6px",
+                  }}
+                  to="/dashboard"
+                  className="nav-links"
+                  onClick={closeMobileMenu}
+                >
+                  Dashboard
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <Typography>Hello</Typography>
+                <Chip
+                  label={user?.displayName}
+                  color="primary"
+                  sx={{ mx: 2 }}
+                  avatar={
+                    <Avatar
+                      sx={{
+                        color: "error.dark",
+                        bgcolor: "warning.dark",
+                      }}
+                    >
+                      <AccountCircleTwoTone />
+                    </Avatar>
+                  }
+                />
+
+                <MuiButton
+                  sx={{
+                    backgroundImage: `linear-gradient(130deg, #846ff4,#4E004A 50%, #846ff4)`,
+                  }}
+                  onClick={logOut}
+                >
+                  Log Out
+                </MuiButton>
+              </li>
+            </React.Fragment>
           )}
         </ul>
       </nav>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -11,25 +11,52 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import {
   createTheme,
+  Grid,
   ListItemButton,
   Paper,
   ThemeProvider,
   Tooltip,
 } from "@mui/material";
-import { ArrowRight, Home, Settings } from "@mui/icons-material";
+import {
+  Add,
+  AdminPanelSettings,
+  ArrowRight,
+  DashboardCustomizeRounded,
+  DeleteForever,
+  FeedbackSharp,
+  Home,
+  LibraryBooksOutlined,
+  Money,
+  ProductionQuantityLimitsTwoTone,
+  Settings,
+} from "@mui/icons-material";
+
+import useAuth from "../../hooks/useAuth";
+import Orders from "./Orders/Orders";
+import Review from "./Review/Review";
+import Pay from "./Pay/Pay";
+import MakeAdmin from "./MakeAdmin/MakeAdmin";
+import AllOrders from "./AllOrders/AllOrders";
+import AddProduct from "./AddProduct/AddProduct";
+import AdminRoute from "../SignUp/AdminRoute/AdminRoute";
+import ManageProduct from "./ManageProduct/ManageProduct";
 
 const drawerWidth = 240;
 
 function Dashboard(props) {
+  const { user, admin, logOut } = useAuth();
+  console.log(admin);
+  console.log(user);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  let { path, url } = useRouteMatch();
+  console.log(useRouteMatch());
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -52,10 +79,12 @@ function Dashboard(props) {
           },
         })}
       >
-        <Paper elevation={0}>
+        <Paper elevation={0} sx={{ height: "100vh" }}>
           <Toolbar>
-            <ListItemButton component="a" href="#customized-list">
-              <ListItemIcon sx={{ fontSize: 20 }}>🔥</ListItemIcon>
+            <ListItemButton component="a" href="#dashboard-list">
+              <ListItemIcon sx={{ fontSize: 20, color: "error" }}>
+                <DashboardCustomizeRounded color="info" />
+              </ListItemIcon>
               <ListItemText
                 sx={{ my: 0 }}
                 primary="Dashboard"
@@ -67,16 +96,15 @@ function Dashboard(props) {
               />
             </ListItemButton>
           </Toolbar>
-
           <Divider />
-
-          <ListItem component="div" disablePadding>
+          {/* /* ----------------------- component={Link} to="/home" ----------------------  */}
+          <ListItem button disablePadding component={Link} to="/">
             <ListItemButton sx={{ height: 56 }}>
               <ListItemIcon>
                 <Home color="primary" />
               </ListItemIcon>
               <ListItemText
-                primary="Project Overview"
+                primary="Go Home"
                 primaryTypographyProps={{
                   color: "primary",
                   fontWeight: "medium",
@@ -122,24 +150,96 @@ function Dashboard(props) {
             </Tooltip>
           </ListItem>
           <Divider />
-
           <Box
             sx={{
               bgcolor: "rgba(71, 98, 130, 0.2)",
               pb: 2,
             }}
           >
-            <List>
-              <ListItem button>
-                <ListItemIcon>
-                  <MailIcon />
-                </ListItemIcon>
-                <ListItemText primary="Manage All Orders" />
-              </ListItem>
-            </List>
+            {!admin ? (
+              <>
+                <List>
+                  <ListItem button component={Link} to={`${url}`}>
+                    <ListItemIcon>
+                      <LibraryBooksOutlined />
+                    </ListItemIcon>
+                    <ListItemText primary="My Orders" />
+                  </ListItem>
+                </List>
+                <List>
+                  <ListItem button component={Link} to={`${url}/review`}>
+                    <ListItemIcon>
+                      <FeedbackSharp />
+                    </ListItemIcon>
+                    <ListItemText primary="Review" />
+                  </ListItem>
+                </List>
+                <List>
+                  <ListItem button component={Link} to={`${url}/pay`}>
+                    <ListItemIcon>
+                      <Money />
+                    </ListItemIcon>
+                    <ListItemText primary="Pay" />
+                  </ListItem>
+                </List>{" "}
+              </>
+            ) : (
+              <>
+                <List>
+                  <ListItem button component={Link} to={`${url}`}>
+                    <ListItemIcon>
+                      <ProductionQuantityLimitsTwoTone />
+                    </ListItemIcon>
+                    <ListItemText primary="Manage All Orders" />
+                  </ListItem>
+                </List>
+                <List>
+                  <ListItem button component={Link} to={`${url}/addProduct`}>
+                    <ListItemIcon>
+                      <Add />
+                    </ListItemIcon>
+                    <ListItemText primary="Add A Product" />
+                  </ListItem>
+                </List>
+                <List>
+                  <ListItem button component={Link} to={`${url}/manageProduct`}>
+                    <ListItemIcon>
+                      <DeleteForever />
+                    </ListItemIcon>
+                    <ListItemText primary="Manage products" />
+                  </ListItem>
+                </List>
+                <List>
+                  <ListItem button component={Link} to={`${url}/makeAdmin`}>
+                    <ListItemIcon>
+                      <AdminPanelSettings />
+                    </ListItemIcon>
+                    <ListItemText primary="Make New Admin" />
+                  </ListItem>
+                </List>
+              </>
+            )}
             <Divider />
-            <List>
-              <ListItem button>
+            <Grid container spacing={2}>
+              <Grid item xs>
+                <Typography variant="subtitle2" noWrap component="div">
+                  User: {user.displayName}
+                </Typography>
+              </Grid>
+              <Grid item xs>
+                <Typography
+                  variant="span"
+                  component="div"
+                  noWrap
+                  gutterBottom
+                  sx={{ textAlign: "center" }}
+                >
+                  {user.email}
+                </Typography>
+              </Grid>
+            </Grid>
+            <List sx={{ bgcolor: "#dd3333" }}>
+              <ListItem onClick={logOut} button>
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
@@ -161,11 +261,12 @@ function Dashboard(props) {
       <AppBar
         position="fixed"
         sx={{
+          bgcolor: "#800000",
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
         }}
       >
-        <Toolbar>
+        <Toolbar sx={{ justifyContent: "space-between" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -175,9 +276,11 @@ function Dashboard(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Responsive drawer
-          </Typography>
+          <Box>
+            <Typography variant="h6" noWrap component="div">
+              Planet Action Figures
+            </Typography>
+          </Box>
         </Toolbar>
       </AppBar>
       <Box
@@ -221,41 +324,45 @@ function Dashboard(props) {
       <Box
         component="main"
         sx={{
+          bgcolor: "#fcede4",
           flexGrow: 1,
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          height: "100vh",
+          overflow: "auto",
         }}
       >
+        {/* /* ------------------------ All Nested Routes Section -----------------------  */}
+
         <Toolbar />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <Switch>
+          {!admin ? (
+            <Route exact path={path}>
+              <Orders />
+            </Route>
+          ) : (
+            <AdminRoute exact path={path}>
+              <AllOrders />
+            </AdminRoute>
+          )}
+
+          <Route path={`${path}/review`}>
+            <Review />
+          </Route>
+          <Route path={`${path}/pay`}>
+            <Pay />
+          </Route>
+
+          <AdminRoute path={`${path}/makeAdmin`}>
+            <MakeAdmin />
+          </AdminRoute>
+          <AdminRoute path={`${path}/addProduct`}>
+            <AddProduct />
+          </AdminRoute>
+          <AdminRoute path={`${path}/manageProduct`}>
+            <ManageProduct />
+          </AdminRoute>
+        </Switch>
       </Box>
     </Box>
   );

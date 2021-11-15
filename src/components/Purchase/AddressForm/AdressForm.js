@@ -5,8 +5,9 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { Box } from "@mui/system";
-import { Button, FormControl, FormHelperText, Input } from "@mui/material";
+import { Button, Input } from "@mui/material";
 import { useForm } from "react-hook-form";
+import useAuth from "../../../hooks/useAuth";
 
 const payments = [{ name: "Card type", detail: "Visa" }];
 
@@ -15,11 +16,13 @@ export default function AddressForm({
   setActiveStep,
   steps,
   setConfiremedOrder,
+  singleProduct,
 }) {
+  const { user } = useAuth();
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, isDirty, isValid, errors },
+    formState: { isDirty, isValid, errors },
     reset,
   } = useForm({
     mode: "onChange",
@@ -34,10 +37,26 @@ export default function AddressForm({
 
   //Handle Order Data
   const onSubmit = (data) => {
+    const { _id, title, image, type, brand, manufacturer, price } =
+      singleProduct;
+    const { displayName } = user;
+    const orderDetails = {
+      ...data,
+      user_name: displayName,
+      product_id: _id,
+      product_title: title,
+      product_type: type,
+      product_brand: brand,
+      product_manufacturer: manufacturer,
+      product_image: image,
+      product_price: price,
+      status: "pending",
+    };
+
     fetch("http://localhost:5000/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify(orderDetails),
     })
       .then((res) => res.json())
       .then((result) => {
@@ -68,12 +87,12 @@ export default function AddressForm({
         >
           Email:
         </Typography>
-        <Input fullWidth disabled defaultValue="e@s.com" />
+        <Input fullWidth disabled defaultValue={user?.email} />
         <input
           hidden
           type="text"
           placeholder="Email"
-          defaultValue="e@s.com"
+          defaultValue={user?.email}
           {...register("email")}
         />
 

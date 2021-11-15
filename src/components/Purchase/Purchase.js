@@ -8,14 +8,12 @@ import Paper from "@mui/material/Paper";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AddressForm from "./AddressForm/AdressForm";
-import PaymentForm from "./PaymentForm/PaymentForm";
 import OrderReview from "./OrderReview/OrderReview";
 import { Link } from "react-router-dom";
-import image from "../../images/Background/card-bg.jpg";
+
 import {
   Card,
   CardActionArea,
@@ -80,7 +78,7 @@ const theme = createTheme({
   },
 });
 
-export default function Purchase() {
+export default function Purchase({ singleProduct }) {
   const [activeStep, setActiveStep] = React.useState(2);
   const [confiremedOrder, setConfiremedOrder] = React.useState(false);
 
@@ -132,10 +130,10 @@ export default function Purchase() {
               bgcolor: "background.default",
             }}
           >
-            <Typography>Title blabla</Typography>
+            <Typography>{singleProduct.type}</Typography>
           </Paper>
           <Slider {...settings}>
-            <div>
+            <div style={{ overflow: "hidden" }}>
               <Box
                 component="img"
                 sx={{
@@ -145,9 +143,8 @@ export default function Purchase() {
                   display: "block",
                   maxWidth: 667,
                   overflow: "hidden",
-                  width: "100%",
                 }}
-                src={image}
+                src={singleProduct.image}
                 alt="label"
               />
             </div>
@@ -163,7 +160,7 @@ export default function Purchase() {
                   overflow: "hidden",
                   width: "100%",
                 }}
-                src={image}
+                src={singleProduct.image}
                 alt="label"
               />
             </div>
@@ -179,7 +176,7 @@ export default function Purchase() {
                   overflow: "hidden",
                   width: "100%",
                 }}
-                src={image}
+                src={singleProduct.image}
                 alt="label"
               />
             </div>
@@ -195,31 +192,76 @@ export default function Purchase() {
                   textAlign: "left",
                 }}
               >
-                <CardContent sx={{ flex: 1 }}>
-                  <Typography gutterBottom>Product Description</Typography>
+                <CardContent sx={{ flex: 1, p: 3 }}>
+                  <Typography
+                    gutterBottom
+                    variant="h6"
+                    sx={{ width: "33%", flexShrink: 0 }}
+                  >
+                    Product Description
+                  </Typography>
+                  <Typography
+                    sx={{ width: "33%", flexShrink: 0, bgcolor: "#f3f3f3" }}
+                  >
+                    Brand
+                  </Typography>
+                  <Typography sx={{ color: "text.secondary" }}>
+                    {singleProduct.brand}
+                  </Typography>
+                  <Typography
+                    sx={{ width: "33%", flexShrink: 0, bgcolor: "#f3f3f3" }}
+                  >
+                    Made By
+                  </Typography>
+                  <Typography sx={{ color: "text.secondary" }}>
+                    {singleProduct.manufacturer}
+                  </Typography>
+                  <Typography
+                    sx={{ width: "33%", flexShrink: 0, bgcolor: "#f3f3f3" }}
+                  >
+                    Size (In cm)
+                  </Typography>
+                  <Typography sx={{ color: "text.secondary" }}>
+                    {singleProduct.size}
+                  </Typography>
+                  <Typography
+                    sx={{ width: "33%", flexShrink: 0, bgcolor: "#f3f3f3" }}
+                  >
+                    Weight (g)
+                  </Typography>
+                  <Typography gutterBottom sx={{ color: "text.secondary" }}>
+                    {singleProduct.weight}
+                  </Typography>
 
-                  <Typography component="h2" variant="h5">
-                    brand:
+                  <Typography
+                    gutterBottom
+                    sx={{
+                      width: "99%",
+                      flexShrink: 0,
+                      bgcolor: "warning.light",
+                      p: 1,
+                    }}
+                  >
+                    Detail Info:
                   </Typography>
-                  <Typography variant="subtitle2" color="text.secondary">
-                    date
-                  </Typography>
-                  <Typography variant="subtitle1" paragraph>
-                    sdsd
-                  </Typography>
-                  <Typography variant="subtitle1" color="primary">
-                    Continue reading... Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Perferendis porro corrupti quas tenetur
-                    totam modi eveniet maiores laboriosam deleniti alias?
-                    Continue reading... Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Perferendis porro corrupti quas tenetur
-                    totam modi eveniet maiores laboriosam deleniti alias?
+
+                  <Typography
+                    variant="subtitle1"
+                    color="primary.dark"
+                    sx={{
+                      width: "99%",
+                      flexShrink: 0,
+                      bgcolor: "warning.light",
+                      p: 2,
+                    }}
+                  >
+                    "{singleProduct.description}"
                   </Typography>
                 </CardContent>
                 <CardMedia
                   component="img"
                   sx={{ width: 160, display: { xs: "none", sm: "block" } }}
-                  image={image}
+                  image={singleProduct.image}
                   alt="image"
                 />
               </Card>
@@ -242,7 +284,7 @@ export default function Purchase() {
                     <Typography variant="subtitle1">
                       Your order number is-
                       <Typography component="span" color="info.light">
-                        #2001539
+                        {singleProduct._id}
                       </Typography>{" "}
                       We have emailed your order confirmation, and will send you
                       an update when your order has shipped.
@@ -252,7 +294,7 @@ export default function Purchase() {
                   <React.Fragment>
                     {/* {getStepContent(activeStep)} */}
 
-                    <OrderReview />
+                    <OrderReview singleProduct={singleProduct} />
                     <Typography component="h1" variant="h4" align="center">
                       Checkout
                     </Typography>
@@ -264,6 +306,7 @@ export default function Purchase() {
                       ))}
                     </Stepper>
                     <AddressForm
+                      singleProduct={singleProduct}
                       activeStep={activeStep}
                       setActiveStep={setActiveStep}
                       steps={steps}

@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  updateProfile,
   signOut,
 } from "firebase/auth";
 
@@ -13,17 +14,29 @@ initializeFirebase();
 
 const useFirebase = () => {
   const [user, setUser] = useState({});
+  const [admin, setAdmin] = useState(false);
+
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   const auth = getAuth();
 
-  const registerUser = (email, password) => {
+  const registerUser = (email, password, name, history) => {
     setIsLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
         // Signed in
-        const user = result.user;
+        const newUser = { email, displayName: name };
+        setUser(newUser);
+        //saver user to Mongo Db
+        saveUserToDb(email, name);
+        // send name to firebase after creation
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        })
+          .then(() => {})
+          .catch((error) => {});
+        history.replace("/");
         setError("");
       })
       .catch((error) => {
@@ -35,7 +48,6 @@ const useFirebase = () => {
   };
 
   const signInUser = (email, password, location, history) => {
-    console.log("from firebase", email, password);
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
@@ -64,6 +76,30 @@ const useFirebase = () => {
       .finally(() => setIsLoading(false));
   };
 
+  //Save user
+  const saveUserToDb = (email, displayName) => {
+    const user = { email, displayName };
+
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((result) => console.log(result));
+  };
+
+  //check admin
+  useEffect(() => {
+    const url = `http://localhost:5000/users/${user?.email}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setAdmin(data.admin);
+        console.log(url, data);
+      });
+  }, [user?.email]);
+
   // User Observer setup step
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -78,7 +114,7 @@ const useFirebase = () => {
     return () => unsubscribe;
   }, []);
 
-  return { user, registerUser, signInUser, logOut, isLoading, error };
+  return { user, admin, registerUser, signInUser, logOut, isLoading, error };
 };
 
 export default useFirebase;

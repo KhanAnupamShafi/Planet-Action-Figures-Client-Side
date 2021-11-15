@@ -1,6 +1,7 @@
 import { Container, Divider, Grid, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
+import { Fade, Flip } from "react-reveal";
 import { dataGoals } from "../../data/Data";
 import FeaturedProducts from "../FeaturedProducts/FeaturedProducts";
 
@@ -33,27 +34,29 @@ const Products = () => {
           <Grid container spacing={3}>
             {dataGoals.map(({ idx, title, info, Icon, backgroundColor }) => (
               <Grid key={idx} item xs={12} sm={12} md={3}>
-                <Paper
-                  outlined="true"
-                  sx={{
-                    minHeight: "265px",
-                    backgroundColor: backgroundColor,
-                    my: 5,
-                    p: 1,
-                    "&:hover": {
-                      cursor: "pointer",
-                      color: "warning.light",
-                      backgroundColor: "primary.dark",
-                    },
-                  }}
-                >
-                  <Icon sx={{ fontSize: "h1.fontSize", color: "#f17674" }} />
-                  <Typography variant="h5"> {title}</Typography>
-                  <Divider variant="middle" />
-                  <Typography variant="body2" sx={{ lineHeight: 2, mt: 3 }}>
-                    {info}
-                  </Typography>
-                </Paper>
+                <Flip left cascade>
+                  <Paper
+                    outlined="true"
+                    sx={{
+                      minHeight: "265px",
+                      backgroundColor: backgroundColor,
+                      my: 5,
+                      p: 1,
+                      "&:hover": {
+                        cursor: "pointer",
+                        color: "warning.light",
+                        backgroundColor: "primary.dark",
+                      },
+                    }}
+                  >
+                    <Icon sx={{ fontSize: "h1.fontSize", color: "#f17674" }} />
+                    <Typography variant="h5"> {title}</Typography>
+                    <Divider variant="middle" />
+                    <Typography variant="body2" sx={{ lineHeight: 2, mt: 3 }}>
+                      {info}
+                    </Typography>
+                  </Paper>
+                </Flip>
               </Grid>
             ))}
           </Grid>

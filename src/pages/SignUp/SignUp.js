@@ -13,7 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import image from "../../images/Background/card-bg.jpg";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import useAuth from "../../hooks/useAuth";
@@ -22,7 +22,7 @@ import { Alert, CircularProgress } from "@mui/material";
 const SignupSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
   email: yup.string().email().required("Email is required"),
-  password: yup.string().min(4).max(32).required("Password is required"),
+  password: yup.string().min(6).max(32).required("Password is required"),
   password2: yup
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match"),
@@ -50,6 +50,7 @@ const theme = createTheme();
 
 export default function SignUp() {
   const { user, isLoading, registerUser, error } = useAuth();
+  const history = useHistory();
 
   const {
     register,
@@ -61,7 +62,7 @@ export default function SignUp() {
   });
   const onSubmit = (data) => {
     console.log(data);
-    registerUser(data.email, data.password);
+    registerUser(data.email, data.password, data.firstName, history);
 
     reset();
   };

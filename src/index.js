@@ -6,10 +6,10 @@ import reportWebVitals from "./reportWebVitals";
 import { CssBaseline } from "@mui/material";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <CssBaseline />
     <App />
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById("root")
 );
 

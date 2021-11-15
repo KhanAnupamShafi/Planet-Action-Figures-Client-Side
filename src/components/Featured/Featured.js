@@ -2,6 +2,7 @@ import { Container, Grid, Paper, Typography } from "@mui/material";
 
 import { makeStyles } from "@mui/styles";
 import React from "react";
+import { Slide } from "react-reveal";
 import { images } from "../../data/Data";
 
 const useStyles = makeStyles({
@@ -35,9 +36,11 @@ const Featured = () => {
         {images.map(({ id, imgPath }) => (
           <React.Fragment key={id}>
             <Grid item xs={6} sm={4} md={4} lg={2}>
-              <Paper elevation={0} sx={{ my: 2 }}>
-                <img width="120" src={imgPath} alt="" />
-              </Paper>
+              <Slide left cascade>
+                <Paper elevation={0} sx={{ my: 2 }}>
+                  <img width="120" src={imgPath} alt="" />
+                </Paper>
+              </Slide>
             </Grid>
           </React.Fragment>
         ))}
